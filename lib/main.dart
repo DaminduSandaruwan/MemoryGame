@@ -51,6 +51,9 @@ class _HomePageState extends State<HomePage> {
 }
 
 class Tile extends StatefulWidget {
+  String imageAssetPath, selected;
+  _HomePageState parent;
+  Tile({this.imageAssetPath,this.selected,this.parent});
   @override
   _TileState createState() => _TileState();
 }
@@ -59,7 +62,8 @@ class _TileState extends State<Tile> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      
+      margin: EdgeInsets.all(5),
+      child: Image.asset(widget.imageAssetPath),
     );
   }
 }
