@@ -54,9 +54,17 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
+        padding: EdgeInsets.symmetric(vertical: 50,horizontal: 20),
         child: Column(
           children: <Widget>[
-            Text("0/800"),
+            SizedBox(height: 40,),
+            Text(
+              "0/800",
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
             Text("Points"),
             SizedBox(height: 20,),
             GridView(
