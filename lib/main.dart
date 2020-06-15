@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:memory_game/data/data.dart';
+import 'package:memory_game/model/tile_model.dart';
 
 void main() {
   runApp(MyApp());
@@ -10,6 +12,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         
         primarySwatch: Colors.blue,
@@ -27,6 +30,18 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+
+  List<TileModel> pairs = new List<TileModel>();
+  
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    pairs = getPairs();
+    pairs.shuffle();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,6 +57,13 @@ class _HomePageState extends State<HomePage> {
                 mainAxisSpacing: 0.0,
                 maxCrossAxisExtent: 100,
               ),
+              children: List.generate(pairs.length, (index){
+                return Tile(
+                  imageAssetPath: pairs[index].getImageAssetPath(),
+                  selected: pairs[index].getIsSelected(),
+                  parent: this,  
+                );
+              }),
             )
           ],
         ),
@@ -51,7 +73,8 @@ class _HomePageState extends State<HomePage> {
 }
 
 class Tile extends StatefulWidget {
-  String imageAssetPath, selected;
+  String imageAssetPath;
+  bool selected;
   _HomePageState parent;
   Tile({this.imageAssetPath,this.selected,this.parent});
   @override
