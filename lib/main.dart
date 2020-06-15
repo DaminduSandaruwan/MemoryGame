@@ -32,6 +32,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
 
   List<TileModel> pairs = new List<TileModel>();
+  List<TileModel> visiblePairs = new List<TileModel>();
   
 
   @override
@@ -40,6 +41,13 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     pairs = getPairs();
     pairs.shuffle();
+
+    visiblePairs = pairs;
+    Future.delayed(const Duration(seconds: 5),(){
+      setState(() {
+        visiblePairs = getQuestions();
+      });
+    });
   }
 
   @override
@@ -57,10 +65,10 @@ class _HomePageState extends State<HomePage> {
                 mainAxisSpacing: 0.0,
                 maxCrossAxisExtent: 100,
               ),
-              children: List.generate(pairs.length, (index){
+              children: List.generate(visiblePairs.length, (index){
                 return Tile(
-                  imageAssetPath: pairs[index].getImageAssetPath(),
-                  selected: pairs[index].getIsSelected(),
+                  imageAssetPath: visiblePairs[index].getImageAssetPath(),
+                  selected: visiblePairs[index].getIsSelected(),
                   parent: this,  
                 );
               }),
