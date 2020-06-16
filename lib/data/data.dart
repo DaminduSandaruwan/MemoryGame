@@ -1,5 +1,8 @@
 import 'package:memory_game/model/tile_model.dart';
 
+int points = 0;
+bool selected = false;
+
 List<TileModel> getPairs(){
   List<TileModel> pairs = new List<TileModel>();
   TileModel tileModel = new TileModel();

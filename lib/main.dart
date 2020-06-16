@@ -43,9 +43,11 @@ class _HomePageState extends State<HomePage> {
     pairs.shuffle();
 
     visiblePairs = pairs;
+    selected = true;
     Future.delayed(const Duration(seconds: 5),(){
       setState(() {
         visiblePairs = getQuestions();
+        selected = false;
       });
     });
   }
@@ -59,7 +61,7 @@ class _HomePageState extends State<HomePage> {
           children: <Widget>[
             SizedBox(height: 40,),
             Text(
-              "0/800",
+              "$points/800",
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
@@ -100,9 +102,16 @@ class Tile extends StatefulWidget {
 class _TileState extends State<Tile> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.all(5),
-      child: Image.asset(widget.imageAssetPath),
+    return GestureDetector(
+      onTap: (){
+        if(!selected){
+          print("You Clicked");
+        }
+      },
+      child: Container(
+        margin: EdgeInsets.all(5),
+        child: Image.asset(widget.imageAssetPath),
+      ),
     );
   }
 }
