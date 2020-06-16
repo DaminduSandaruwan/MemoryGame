@@ -31,7 +31,6 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
 
-  List<TileModel> pairs = new List<TileModel>();
   List<TileModel> visiblePairs = new List<TileModel>();
   
 
@@ -78,8 +77,9 @@ class _HomePageState extends State<HomePage> {
               children: List.generate(visiblePairs.length, (index){
                 return Tile(
                   imageAssetPath: visiblePairs[index].getImageAssetPath(),
-                  selected: visiblePairs[index].getIsSelected(),
+                  // selected: visiblePairs[index].getIsSelected(),
                   parent: this,  
+                  tileIndex: index,
                 );
               }),
             )
@@ -92,9 +92,11 @@ class _HomePageState extends State<HomePage> {
 
 class Tile extends StatefulWidget {
   String imageAssetPath;
-  bool selected;
+
+  int tileIndex;
+
   _HomePageState parent;
-  Tile({this.imageAssetPath,this.selected,this.parent});
+  Tile({this.imageAssetPath,this.parent, this.tileIndex});
   @override
   _TileState createState() => _TileState();
 }
@@ -106,11 +108,14 @@ class _TileState extends State<Tile> {
       onTap: (){
         if(!selected){
           print("You Clicked");
+          setState(() {
+            pairs[widget.tileIndex].setIsSelected(true);
+          });
         }
       },
       child: Container(
         margin: EdgeInsets.all(5),
-        child: Image.asset(widget.imageAssetPath),
+        child: Image.asset(pairs[widget.tileIndex].getIsSelected() ? pairs[widget.tileIndex].getImageAssetPath() : widget.imageAssetPath),
       ),
     );
   }
