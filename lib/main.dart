@@ -107,9 +107,23 @@ class _TileState extends State<Tile> {
     return GestureDetector(
       onTap: (){
         if(!selected){
+          if(selectedImageAssetPath != ""){
+            if(selectedImageAssetPath==pairs[widget.tileIndex].getImageAssetPath()){
+              //Correct
+              print("correct");
+            }else{
+              //incorrect choice
+              print("incorrect");
+            }
+          }
+          else{
+            selectedTileIndex = widget.tileIndex;
+            selectedImageAssetPath=pairs[widget.tileIndex].getImageAssetPath();
+          }
           print("You Clicked");
           setState(() {
             pairs[widget.tileIndex].setIsSelected(true);
+
           });
         }
       },
