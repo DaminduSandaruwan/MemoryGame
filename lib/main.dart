@@ -58,16 +58,21 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           children: <Widget>[
             SizedBox(height: 40,),
-            Text(
-              "$points/800",
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            Text("Points"),
+            points !=800 ? Column(
+              children: <Widget>[
+                Text(
+                  "$points/800",
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Text("Points"),
+              ],
+            ) : Container(),
+            
             SizedBox(height: 20,),
-            GridView(
+            points != 800 ? GridView(
               shrinkWrap: true,
               gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
                 mainAxisSpacing: 0.0,
@@ -81,7 +86,21 @@ class _HomePageState extends State<HomePage> {
                   tileIndex: index,
                 );
               }),
-            )
+            ) : Container(
+              padding: EdgeInsets.symmetric(vertical:12, horizontal:24),
+              decoration: BoxDecoration(
+                color: Colors.blueAccent,
+                borderRadius: BorderRadius.circular(24)
+              ),
+              child: Text(
+                "Replay",
+                style: TextStyle(
+                  fontSize: 17,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              ),
+            ),
           ],
         ),
       ),
@@ -110,13 +129,14 @@ class _TileState extends State<Tile> {
             if(selectedImageAssetPath==pairs[widget.tileIndex].getImageAssetPath()){
               //Correct
               print("correct");
+              selected = true;
               Future.delayed(const Duration(seconds: 2),(){
                 points+=100;
                 
                 setState(() {
                   
                 });
-
+                selected = false;
                 widget.parent.setState(() {
                   pairs[widget.tileIndex].setImageAssetPath ("");
                   pairs[selectedTileIndex].setImageAssetPath("");
@@ -125,14 +145,14 @@ class _TileState extends State<Tile> {
                 selectedImageAssetPath="";
               });
 
-            }
-            
-              
+            }        
             
             else{
               //incorrect choice
               print("incorrect");
+              selected = true;
               Future.delayed(const Duration(seconds:2),(){
+                selected=false;
                 widget.parent.setState(() {
                   pairs[widget.tileIndex].setIsSelected(false);
                   pairs[selectedTileIndex].setIsSelected(false);
