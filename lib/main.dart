@@ -122,11 +122,23 @@ class _TileState extends State<Tile> {
                   pairs[selectedTileIndex].setImageAssetPath("");
 
                 });
-
+                selectedImageAssetPath="";
               });
-            }else{
+
+            }
+            
+              
+            
+            else{
               //incorrect choice
               print("incorrect");
+              Future.delayed(const Duration(seconds:2),(){
+                widget.parent.setState(() {
+                  pairs[widget.tileIndex].setIsSelected(false);
+                  pairs[selectedTileIndex].setIsSelected(false);
+                });
+                selectedImageAssetPath="";
+              });
             }
           }
           else{
