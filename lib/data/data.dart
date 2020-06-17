@@ -5,6 +5,7 @@ bool selected = false;
 String selectedImageAssetPath="";
 int selectedTileIndex;
 
+List<TileModel> visiblePairs = new List<TileModel>();
 List<TileModel> pairs = new List<TileModel>();
 
 List<TileModel> getPairs(){

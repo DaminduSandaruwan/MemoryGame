@@ -31,7 +31,6 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
 
-  List<TileModel> visiblePairs = new List<TileModel>();
   
 
   @override
@@ -111,6 +110,20 @@ class _TileState extends State<Tile> {
             if(selectedImageAssetPath==pairs[widget.tileIndex].getImageAssetPath()){
               //Correct
               print("correct");
+              Future.delayed(const Duration(seconds: 2),(){
+                points+=100;
+                
+                setState(() {
+                  
+                });
+
+                widget.parent.setState(() {
+                  pairs[widget.tileIndex].setImageAssetPath ("");
+                  pairs[selectedTileIndex].setImageAssetPath("");
+
+                });
+
+              });
             }else{
               //incorrect choice
               print("incorrect");
@@ -120,16 +133,16 @@ class _TileState extends State<Tile> {
             selectedTileIndex = widget.tileIndex;
             selectedImageAssetPath=pairs[widget.tileIndex].getImageAssetPath();
           }
-          print("You Clicked");
+          
           setState(() {
             pairs[widget.tileIndex].setIsSelected(true);
-
           });
+          print("You Clicked");
         }
       },
       child: Container(
         margin: EdgeInsets.all(5),
-        child: Image.asset(pairs[widget.tileIndex].getIsSelected() ? pairs[widget.tileIndex].getImageAssetPath() : widget.imageAssetPath),
+        child: pairs[widget.tileIndex].getImageAssetPath() !="" ?  Image.asset(pairs[widget.tileIndex].getIsSelected() ? pairs[widget.tileIndex].getImageAssetPath() : widget.imageAssetPath) : Image.asset("assets/correct.png"),
       ),
     );
   }
